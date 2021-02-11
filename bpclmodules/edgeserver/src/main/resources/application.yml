@@ -1,0 +1,55 @@
+jjwt:
+    expiration: 180 #seconds
+    password:
+        encoder:
+            iteration: 33
+            keylength: 256
+            secret: mysecret
+    secret: zaqWSXcdeRFVbgtYHNmjuikOlp0123456789#$*Ctel&gOwTh@mzaqWSXcdeRFVbg
+
+logging:
+    file:
+        name: logs/edgeserver.log
+        path: logs
+    pattern:
+        console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36}:%L - %msg%n'
+        file: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36}:%L - %msg%n'
+server:
+    error:
+        whitelabel:
+            enabled: false
+    port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI}
+  instance:
+    preferIpAddress: false
+spring:
+  application:    name: bpclgateway
+  cloud:
+    gateway:
+      routes:
+      - id: INDENT
+        uri: lb://ms1
+        predicates:
+        - Method=GET
+        - Query=ObjectType, sample
+        - Path=/services/v1/sample**
+      
+      - id: Login
+        uri: localhost:8080/login
+        predicates:
+         - Method=POST
+         - Path=/login 
+     
+      - id: GOWTHAM
+        uri: lb://update
+        predicates:
+         - Method=POST
+         - Path=/services/v1/UpdateService/process
+        #filters:
+        #  - RewritePath=/(?<segment>.*), /update/$\{segment}
+ribbon:
+  eureka:
+    enabled: false
