@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bpclmodules</name>
 	<packaging>pom</packaging>
-	<description>bpclmodules project for spring Boot</description>
+	<description>bpcl project for spring Boot dev by ctel java team</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<maven.test.skip>true</maven.test.skip>
